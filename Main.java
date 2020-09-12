@@ -6,5 +6,6 @@ class Main {
   
   String data = importer.importFile("covid19dataexport.txt");
   importer.dataSplitter(data);
+  //This is a test
   }
 }
