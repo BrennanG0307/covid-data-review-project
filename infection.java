@@ -3,8 +3,10 @@ public class infection {
   int day;
   int year;
   String zone;
-  int gender;
+  int cleanZone;
+  char gender;
   String age;
+  int cleanAge;
   String status;
   boolean confirmed;
   int caseNumber;
@@ -15,9 +17,9 @@ public class infection {
     this.zone = zone;
     //Sets gender int
     if(gender.equals("Male")){
-      this.gender = 0;
+      this.gender = 'M';
     }else{
-      this.gender = 1;
+      this.gender = 'F';
     }
     this.age = age;
     this.status = status;
@@ -27,7 +29,9 @@ public class infection {
     }else{
       this.confirmed = false;
     }
-    //setDate(date);
+    setDate(date);
+    this.cleanAge = setAge(age);
+    this.cleanZone = setZone(zone);
   }
 
   void setDate(String date) {
@@ -39,5 +43,44 @@ public class infection {
 
   void printInfection() {
     System.out.println(confirmed);
+  }
+
+  int setAge(String age){
+    if(age.contains("Under")){
+      return 0;
+    }
+    else if(age.contains("+")){
+      return 85;
+    }
+    else if(age.contains("Unknown")){
+      return -1;
+    }
+    else{
+      String[] ageA = age.split("-");
+      String[] ageB = ageA[1].split(" ");
+      return (Integer.parseInt(ageA[0]) + Integer.parseInt(ageB[0]))/2;
+    }
+
+  }
+
+  int setZone(String zone){
+    if(zone.equals("Calgary Zone")){
+      return 3;
+    }
+    else if(zone.equals("Edmonton Zone")){
+      return 1;
+    }
+    else if(zone.equals("Central Zone")){
+      return 2;
+    }
+    else if(zone.equals("North Zone")){
+      return 0;
+    }
+    else if(zone.equals("South Zone")){
+      return 4;
+    }
+    else{
+      return -1;
+    }
   }
 }
