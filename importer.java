@@ -39,16 +39,19 @@ public class importer {
   }
 
   static void dataSplitter(String rawData){
-    ArrayList<infection> infected = new ArrayList<infection>();
+    
     String[] splitData = rawData.split("\",\"");
-    for(int i = 8; i < splitData.length; i = i+7){
-      if(splitData[i] == "\""){
-        //Skip if the only value in splitData is "
-       i = i-7;
-     }else{
-        infection b = new infection(Integer.parseInt(splitData[i]),splitData[i+1],splitData[i+2],splitData[i+3],splitData[i+4],splitData[i+5],splitData[i+6]);
+    //Remove last quote
+    splitData[splitData.length - 1] = splitData[splitData.length - 1].substring(0,splitData[splitData.length - 1].length()-2);
+    
 
-     }
+
+    //Import data into array list
+    ArrayList<infection> infected = new ArrayList(1600);
+    for(int i = 7; i < splitData.length; i = i+7){
+        infection temp = new infection(Integer.parseInt(splitData[i]),splitData[i+1],splitData[i+2],splitData[i+3],splitData[i+4],splitData[i+5],splitData[i+6]);
+        infected.add(temp);
     }
+    
   }
 }
